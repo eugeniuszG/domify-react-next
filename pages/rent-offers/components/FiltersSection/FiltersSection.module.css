@@ -1,0 +1,74 @@
+.btn-reset {
+    background: rgb(51, 51, 51);
+    color: black;
+    border: none;
+    text-align: center;
+    font-family: Lato;
+    font-size: 14px;
+    color: white;
+    line-height: 1;
+    border-radius: 50px;
+    height: 45px;
+    width: 100px
+}
+.btn-reset:hover {
+    background: #2e7d32;
+    color: white;
+}
+.btn-reset:active {
+    background: #2e7d32;
+    color: white;
+}
+
+.btn-reset:disabled {
+    background: rgb(195, 195, 195);
+    color: black;
+}
+
+
+.btn-apply {
+    background: rgb(51, 51, 51);
+    color: white;
+    border: none;
+    text-align: center;
+    font-family: Lato;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 50px;
+    height: 45px;
+    width: 100px
+}
+
+.btn-apply:hover {
+    background: #2e7d32;
+    color: white;
+}
+
+.btn-apply:active {
+    background: #2e7d32;
+    color: white;
+}
+
+.btn-apply:disabled {
+    background: rgb(195, 195, 195);
+    color: black;
+}
+
+.flter-section-header {
+    font-family: "Baloo 2";
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(51, 51, 51);
+    line-height: 1.4;
+}
+
+.list-chip-elements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filters-container{
+    background-color: white;
+    box-shadow: rgb(212 212 212) 4px 0px 4px 2px;
+}

@@ -1,0 +1,14 @@
+.contact{
+    color:black !important;
+}
+.contact:hover{
+    color: rgb(98, 201, 132) !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.txt-header {
+    font-family: 'Lato', sans-serif;
+    font-size: 21px;
+    font-weight: bold;
+}

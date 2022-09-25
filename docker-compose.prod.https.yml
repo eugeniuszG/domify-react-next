@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  domify-frontend:  
+    build:
+      context: ./..
+      dockerfile: domify-frontend/Dockerfile
+    restart: always
+    command: bash -c 'npm run start'
+    # tty: true
+    networks:
+      - bridge-net
+    ports:
+      - 8010:3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.domify-frontend-http.entrypoints=web"
+      - "traefik.http.routers.domify-frontend-http.rule=Host(`www.domifybot.com`) || Host(`domifybot.com`)"
+      - "traefik.http.routers.domify-frontend-http.middlewares=domify-frontend-https"
+      - "traefik.http.middlewares.domify-frontend-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.domify-frontend.entrypoints=websecure"
+      - "traefik.http.routers.domify-frontend.rule=Host(`www.domifybot.com`) || Host(`domifybot.com`)"
+      - "traefik.http.routers.domify-frontend.tls=true"
+      - "traefik.http.routers.domify-frontend.tls.certresolver=le"
+      - "traefik.port=8443"

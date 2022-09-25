@@ -1,0 +1,48 @@
+.content{
+    height: 193px;
+    width: 303px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px !important;
+    box-shadow: rgb(204 204 204) 0px 0px 4px 0px;
+    cursor: pointer;
+    margin: 0 auto !important;
+}
+
+.card-header{
+    font-family: "Baloo 2";
+    font-size: 24px;
+    color: rgb(51, 51, 51);
+    font-weight: 600;
+    background-color: rgb(255, 255, 255) !important;
+    border-bottom: none !important;
+}
+
+.gray-anchor{
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(122, 122, 122);
+    border-radius: 50px;
+    text-decoration: none;
+}
+
+.logo-header{
+    height: 40px;
+    width: 40px;
+}
+
+.card-subtitle{
+    font-family: "Baloo 2";
+    font-size: 18px;
+    font-weight: 400;
+    color: rgb(65, 181, 114);
+}
+
+.card{
+    height: 175px;
+    width: 303px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px !important;
+    box-shadow: rgb(204 204 204) 0px 0px 4px 0px;
+    margin: auto !important;
+}

@@ -1,0 +1,17 @@
+.nav-link{
+    color: black !important;
+    font-size: 12px !important;
+}
+.txt-domify{
+    color: rgb(199, 199, 199);
+    font-size: 10px;
+    font-family: 'Cabin', sans-serif;
+}
+.footer{
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 3.7rem !important;
+    background-color: rgb(245, 245, 245);
+    margin: auto !important;
+}

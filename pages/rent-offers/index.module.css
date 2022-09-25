@@ -1,0 +1,25 @@
+.divider {
+    height: 64px;
+    width: 100%;
+    background-color: rgb(222, 222, 222);
+}
+.page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+.list-offers-container{
+    background-color: rgb(240, 240, 240);
+    min-height: 85%;
+}
+
+.height-85{
+    min-height: 85%;
+}
+
+.padding-zero {
+    padding: 0px!important;
+    background-color: rgb(240, 240, 240);
+}
+
+

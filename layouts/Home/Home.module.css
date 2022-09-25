@@ -1,0 +1,53 @@
+.bg-green{
+    background: rgb(98, 201, 132);;
+  }
+  
+  .inspiration{
+    background-color: rgba(51, 51, 51, 0.38)
+  }
+  
+  .txt-green-baloo-28px{
+    font-weight: 400;
+    font-family: 'Baloo 2', cursive;
+    font-size: 28px !important;
+    color: rgb(98, 201, 132);
+  }
+  
+  .warszawa{
+    margin-left: -70px;
+    color: rgb(107,107,107);
+    font-size: 24px;
+    font-family:  'Baloo 2', cursive; 
+    z-index: 1000;   
+  }
+  
+  .h2-baloo2-28px{
+    font-family: 'Baloo 2', cursive !important;
+    font-size: 28px !important;
+  }
+  
+  .btn-start-custom{
+    padding-bottom: 8px;
+    text-align: center;
+    border: none;
+    height: 50px;
+    width: 80px;
+    background:white;
+    padding-top: 8px;
+    font-family: 'Cabin', sans-serif;
+    font-size: 21px ;
+    color: rgb(98, 201, 132) !important;
+    border-radius: 35px;
+    text-decoration: none;
+    transition: background 0.3s ease 0s;
+  }
+  .btn-start-custom:hover {
+    background: rgb(51,51,51);
+    text-decoration: none;
+    color: white !important;
+    cursor: pointer;
+  }
+  .btn-start-custom:focus{
+    outline: none !important;
+  }
+  

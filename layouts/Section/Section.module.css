@@ -1,0 +1,14 @@
+.h2-baloo2{
+    font-family: 'Baloo 2', cursive;
+}
+
+.green-subtitle{
+    font-family: Lato;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(98, 201, 132);
+}
+
+.height-400px{
+    height: 278px !important;
+}

@@ -1,0 +1,8 @@
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+#main-content-wraper {
+  padding-bottom: 2rem;
+}
