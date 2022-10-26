@@ -3,6 +3,7 @@ import Divider from "@mui/material/Divider"
 import Slider from "@mui/material/Slider"
 import { useEffect } from "react"
 import { ApartmentFilter } from '../../../../services/apartment.service';
+import { Type, UserFilter, Districts } from "../../../../services/models/models";
 import styles from './FiltersSection.module.css'
 
 
@@ -83,8 +84,10 @@ const FiltersSection = (
     const handleApply = () => {
         setPage(1);
         setLoading(true);
-        let filters = getFiltersFromState();
-        ApartmentFilter(currentPage, filters)
+        let filters: UserFilter = getFiltersFromState();
+        // hardcoded for now
+        let limit = 6;
+        ApartmentFilter(currentPage, limit, filters)
         .then(res => {
             if (res.status === 200) {
                 setApartmentsList(res.data.items?.slice(0, 120));
@@ -95,11 +98,11 @@ const FiltersSection = (
 
     const getFiltersFromState = () => {
         return {
-            type_space: isApartemnt ? 'APARTMENT' : isRoom ? 'SINGLE_ROOM' : 'ALL_TYPE',
-            district: districts,
-            price_min: priceRange ? priceRange[0] : 0,
-            price_max: priceRange ? priceRange[1] : 1000,
-            number_rooms: rooms,
+            type_space: isApartemnt ? Type.APARTMENT : isRoom ? Type.SINGLE_ROOM : Type.ALL_TYPE as Type,
+            district: districts as Districts,
+            price_min: (priceRange ? priceRange[0] : 0) as number,
+            price_max: (priceRange ? priceRange[1] : 1000) as number,
+            number_rooms: rooms as Array<number>,
         }
     }
 

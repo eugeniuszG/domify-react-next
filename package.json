@@ -13,14 +13,22 @@
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.10.1",
+    "@reduxjs/toolkit": "^1.8.6",
+    "@types/react-redux": "^7.1.24",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "loadash": "^1.0.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "next": "12.2.5",
+    "next-redux-wrapper": "^8.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.4",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.184",

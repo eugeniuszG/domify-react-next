@@ -1,17 +1,18 @@
-import axios from "axios";
-
-const API_URL = process.env.NEXT_PUBLIC_API;
+import { axios } from "./axios";
+import { UserFilter } from "./models/models";
 
 export function ApartmentService ({page, limit}: any): Promise<any> {
-    return axios.get(`${API_URL}/apartament?order_by=true&page=${page}&size=${limit}`);
+    try {
+        return axios.get(`/apartament?order_by=true&page=${page}&size=${limit}`);
+    } catch (error) {
+        throw error;
+    }
 }
 
-export function ApartmentFilter (page: number, userFilter: any): Promise<any> {
-    let size = 6;
-    return axios.post(`${API_URL}/apartament/filter?page=${page}&size=${size}`, userFilter, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin' : '*'
-        }
-    });
+export function ApartmentFilter (page: number, limit: number, userFilter: UserFilter): Promise<any> {
+    try {
+        return axios.post(`/apartament/filter?page=${page}&size=${limit}`, userFilter); 
+    } catch (error) {
+        throw error;
+    }
 }

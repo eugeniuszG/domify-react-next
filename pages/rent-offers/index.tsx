@@ -7,6 +7,9 @@ import { ApartmentService, ApartmentFilter } from '../../services/apartment.serv
 import { NextPage } from 'next';
 import FiltersSection from './components/FiltersSection/FiltersSection'
 import { District, Rooms } from '../../utils/constants';
+import { RootState } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { ApartmentPayload, fetchApartmets, selectApartmetns, selectLoadingState } from './apartmentsSlice';
 
 const RentOffersWrapper: NextPage = () => {
     const [apartmentsList, setApartmentsList] = useState<any>([]);
@@ -21,23 +24,32 @@ const RentOffersWrapper: NextPage = () => {
     const [isReset, setResetState] = useState<boolean>(false);
     const [currentPage, setPage] = useState(1);
 
+
+    const dispatch = useAppDispatch();
+    const selector = useAppSelector;
+
+    const payload: ApartmentPayload = {
+        page: currentPage,
+        // hardcoded for now
+        limit: 6
+    }
+
+
     useEffect(() => {
-        setLoading(true);
-        ApartmentService({page: currentPage, limit: 6}).then(res => {
-            if (res.status === 200) {
-                setApartmentsList(res.data.items);
-                setLoading(false);
-            }
-        });
-    }, [currentPage])
+        console.log('run useEffect')
+        const dispatched = dispatch(fetchApartmets(payload));
+    }, [])
+
+    const fetchedApartmentsList = selector((state: RootState) => state.apartments.apartmentsList)
 
 
 
-    const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+
+    const handlePageChange = async (event: React.ChangeEvent<unknown>, page: number) => {
         setPage(page);
         if(currentPage !== page) {
             setLoading(true);
-            ApartmentService({page: currentPage, limit: 6}).then(res => {
+            await ApartmentService({page: currentPage, limit: 6}).then(res => {
                 if (res.status === 200) {
                     setApartmentsList(res.data.items);
                     setLoading(false);
@@ -74,6 +86,11 @@ const RentOffersWrapper: NextPage = () => {
                 ></FiltersSection>
                 <div style={{minHeight:"100%", paddingRight: 0}} className='col-9 position-relative'>
                     <div style={{paddingBottom: "5rem"}}>
+
+                        {
+                            
+                        }
+
                         {loading 
                             ? 
                             <div style={{"top":"40%"}} className='position-absolute start-50 translate-middle'><LoaderSimple/></div>
