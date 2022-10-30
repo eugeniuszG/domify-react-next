@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, AnyAction, AsyncThunk } from '@reduxjs/t
 import { axios } from '../../services/axios'
 import { Apartment } from '../../services/models/models';
 import { RootState } from '../../store/store';
-import { UserFilter } from '../../store/types';
+import { UserFilter } from '../../services/models/models';
 
 interface Pagination {
     page: number,
@@ -24,7 +24,7 @@ export interface ApartmentPayload {
     limit: number
 }
 
-interface ApartmentFilteredPayload {
+export interface ApartmentFilteredPayload {
     page: number,
     limit: number,
     userFilter: UserFilter
@@ -34,7 +34,6 @@ interface ApartmentFilteredPayload {
 const initialState: ApartmentsState = {
     apartmentsList: [],
     loadingState: 'idle',
-    error: null,
 }
 
 export const fetchApartmets = createAsyncThunk(
@@ -46,7 +45,7 @@ export const fetchApartmets = createAsyncThunk(
 )
 
 export const fetchApartmetsFiltered = createAsyncThunk(
-    'fetchApartmentsFiltered',
+    'apartments/fetchApartmentsFiltered',
     async ({page, limit, userFilter}: ApartmentFilteredPayload) => {
         const response = await axios.post(`/apartament/filter?page=${page}&size=${limit}`, userFilter); 
         return response.data
@@ -56,7 +55,11 @@ export const fetchApartmetsFiltered = createAsyncThunk(
 export const apartmentsSlice = createSlice({
   name: 'apartments',
   initialState,
-  reducers: {},
+  reducers: {
+    resetApartments(state) {
+        state = initialState;
+      },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchApartmets.pending, (state, action) => {
@@ -64,8 +67,26 @@ export const apartmentsSlice = createSlice({
       })
       .addCase(fetchApartmets.fulfilled, (state, action) => {
         state.loadingState = 'success'
-        console.log(action.payload);
-        state.apartmentsList = state.apartmentsList.concat(action.payload.itmes)
+        state.pagination = {
+            ...state.pagination,
+            page: action.payload.page as number,
+            size: action.payload.size as number,
+            total: action.payload.total as number,
+        }
+        state.apartmentsList = [...action.payload.items]
+
+      })
+      .addCase(fetchApartmets.rejected, (state, action) => {
+        state.loadingState = 'error'
+        state.error = action.error.message
+      })
+
+      .addCase(fetchApartmetsFiltered.pending, (state, action) => {
+        state.loadingState = 'loading'
+      })
+      .addCase(fetchApartmetsFiltered.fulfilled, (state, action) => {
+        state.loadingState = 'success'
+        state.apartmentsList = [...action.payload.items]
         state.pagination = {
             ...state.pagination,
             page: action.payload.page as number,
@@ -73,13 +94,9 @@ export const apartmentsSlice = createSlice({
             total: action.payload.total as number,
         }
       })
-      .addCase(fetchApartmets.rejected, (state, action) => {
+      .addCase(fetchApartmetsFiltered.rejected, (state, action) => {
         state.loadingState = 'error'
         state.error = action.error.message
       })
   },
 })
-
-
-export const selectApartmetns = (state: RootState) => state.apartments.apartmentsList;
-export const selectLoadingState = (state: RootState) => state.apartments.loadingState;

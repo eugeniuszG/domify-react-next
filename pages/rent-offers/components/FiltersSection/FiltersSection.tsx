@@ -1,18 +1,37 @@
 import Chip from "@mui/material/Chip"
 import Divider from "@mui/material/Divider"
 import Slider from "@mui/material/Slider"
-import { useEffect } from "react"
-import { ApartmentFilter } from '../../../../services/apartment.service';
+import { useEffect, useState, Dispatch, SetStateAction } from "react"
 import { Type, UserFilter, Districts } from "../../../../services/models/models";
+import { useAppDispatch } from "../../../../store/hooks";
+import { District, Rooms } from "../../../../utils/constants";
+import { ApartmentFilteredPayload, apartmentsSlice, fetchApartmetsFiltered } from "../../apartmentsSlice";
 import styles from './FiltersSection.module.css'
 
 
-const FiltersSection = (
-    {   isApartemnt, isRoom, districts, rooms, isApplyDirty, 
-        isReset, District, currentPage, priceRange, Rooms,
-        setApplyState, setResetState, setPriceRange, setApartmentBoolean, setRoomBoolean,
-        setRooms, setDistricts, setLoading, setPage, setApartmentsList
-    }: any) => {
+const FiltersSection: React.FC<{
+    currentPage: number, 
+    isFilterUsed: boolean, 
+    pageSetter: Dispatch<SetStateAction<number>>,
+    isFiltersSetter: Dispatch<SetStateAction<boolean>>,
+}> = (
+    {currentPage,
+    isFilterUsed,
+    pageSetter,
+    isFiltersSetter
+    }
+) => {
+
+    const [priceRange, setPriceRange] = useState<number[]>([1000, 2500]);
+    const [isApartemnt, setApartmentBoolean] = useState<boolean>(false)
+    const [isRoom, setRoomBoolean] = useState<boolean>(false)
+    const [rooms, setRooms] = useState<number[]>([]);
+    const [districts, setDistricts] = useState<string[]>([]);
+
+    const [isResetEnabled, setResetState] = useState<boolean>(false);
+    const [isApplyDirty, setApplyState] = useState<boolean>(false);
+
+    let dispatch = useAppDispatch();
 
     useEffect(() => {
         if((isApartemnt || isRoom) && districts.length > 0 && rooms.length > 0) {
@@ -26,7 +45,18 @@ const FiltersSection = (
         } else {
             setResetState(false);
         }
-    }, [isRoom, isApartemnt, rooms, districts, isApplyDirty, isReset])
+
+        let userFilters = getUserFiltersFromState();
+        const payloadWithFilters: ApartmentFilteredPayload = {
+            page: currentPage,
+            limit: 6,
+            userFilter: userFilters
+        }
+        pageSetter(currentPage!);
+        if (isApplyDirty && isFilterUsed) {
+            dispatch(fetchApartmetsFiltered(payloadWithFilters))
+        }
+    }, [isRoom, isApartemnt, rooms, districts, isApplyDirty, isResetEnabled, currentPage])
 
     const handlePriceRangeChange = (event: Event, newValue: number | number[]) => {
         setPriceRange(newValue as number[]);
@@ -50,7 +80,7 @@ const FiltersSection = (
     const handleOneRoomChip = (e: React.MouseEvent) => {
         let span = e.target as HTMLElement;
         if(rooms.includes(+span.innerHTML) === false ) {
-            setRooms([...rooms, +span.innerHTML]);    
+            setRooms([...rooms, +span?.innerHTML]);    
         }
     };
 
@@ -76,30 +106,30 @@ const FiltersSection = (
     const handleReset = () => {
         setPriceRange([1000, 2500]);
         setApartmentBoolean(false);
-        setRoomBoolean(false);
-        setRooms([]);
+            setRoomBoolean(false);
+            setRooms([]);
         setDistricts([]);
+        isFiltersSetter(false);
+        pageSetter(1);
     }
 
     const handleApply = () => {
-        setPage(1);
-        setLoading(true);
-        let filters: UserFilter = getFiltersFromState();
-        // hardcoded for now
-        let limit = 6;
-        ApartmentFilter(currentPage, limit, filters)
-        .then(res => {
-            if (res.status === 200) {
-                setApartmentsList(res.data.items?.slice(0, 120));
-            }
-        })
-        .then(() => {setLoading(false)});
+        let filters: UserFilter = getUserFiltersFromState();  
+        let payloadWithFilters: ApartmentFilteredPayload = {
+            page: 1,
+            limit: 6,
+            userFilter: filters
+        }
+        dispatch(apartmentsSlice.actions.resetApartments());
+        dispatch(fetchApartmetsFiltered(payloadWithFilters))
+        isFiltersSetter(true);
+        pageSetter(payloadWithFilters.page);
     }
 
-    const getFiltersFromState = () => {
+    const getUserFiltersFromState = () => {
         return {
-            type_space: isApartemnt ? Type.APARTMENT : isRoom ? Type.SINGLE_ROOM : Type.ALL_TYPE as Type,
-            district: districts as Districts,
+            type_space: isApartemnt ? "APARTMENT" : isRoom ? "SINGLE_ROOM" : "ALL_TYPE" as Type,
+            district: districts as unknown as Array<Districts>,
             price_min: (priceRange ? priceRange[0] : 0) as number,
             price_max: (priceRange ? priceRange[1] : 1000) as number,
             number_rooms: rooms as Array<number>,
@@ -191,7 +221,7 @@ const FiltersSection = (
         </div>
         <Divider />
         <div className='mx-auto mb-2 d-flex justify-content-center' style={{paddingTop: '12px'}}>
-            <button onClick={handleReset} disabled={isReset === false} type='button' className={`${styles["btn-reset"]} ${'mx-3'}`} >reset</button>
+            <button onClick={handleReset} disabled={isResetEnabled === false} type='button' className={`${styles["btn-reset"]} ${'mx-3'}`} >reset</button>
             <button onClick={handleApply} disabled={isApplyDirty === false} type='button' className={`${styles["btn-apply"]}`}>apply</button>
         </div>
     </div>

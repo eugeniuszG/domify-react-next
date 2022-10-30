@@ -4,8 +4,21 @@ import Stack from '@mui/material/Stack';
 import moment from 'moment';
 import { otodomLogo, oloxLogo } from '../../../../utils/constants';
 import styles from './Card.module.css'
+import { Districts } from '../../../../services/models/models';
+import { Source, Type } from '../../../../services/models/models';
 
-const Card = ({title, price, publishedTime, district, imageSrc, discription, spaceType, numberRooms, source_website, source_url_offer}: any) => {
+const Card: React.FC<{
+    title: string, 
+    price: string, 
+    publishedTime: string, 
+    district: Districts,
+    imageSrc: string,
+    discription: string,
+    spaceType: Type,
+    numberRooms: number,
+    source_url_offer: string
+    source_website: Source
+}> = ({title, price, publishedTime, district, imageSrc, discription, spaceType, numberRooms, source_website, source_url_offer}) => {
    
     const handleRedirectionToOffer = () => {
         window.open(source_url_offer, '_blank');
@@ -37,7 +50,7 @@ const Card = ({title, price, publishedTime, district, imageSrc, discription, spa
                 <h5 className={`${'mt-3'} ${styles.title}`}>{ title }</h5>
                 <p className={styles['description']}>{ discription?.substring(0, 72) }...</p>
                 <div className='pt-2' style={{
-                    backgroundImage: `url(${source_website === 'OTODOM' ? otodomLogo : oloxLogo})`,
+                    backgroundImage: `url(${source_website === "OTODOM" ? otodomLogo : oloxLogo})`,
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'bottom left',
