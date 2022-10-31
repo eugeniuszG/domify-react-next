@@ -32,7 +32,7 @@ const RentOffersWrapper: NextPage = () => {
         if (isFilterUsed == false) {
             dispatch(fetchApartmets(payload));
         }
-    }, [currentPage])
+    }, [currentPage, isFilterUsed])
 
     const handlePageChange = (
         event: React.ChangeEvent<unknown>,

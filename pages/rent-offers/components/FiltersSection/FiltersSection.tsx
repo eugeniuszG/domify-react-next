@@ -1,7 +1,7 @@
 import Chip from "@mui/material/Chip"
 import Divider from "@mui/material/Divider"
 import Slider from "@mui/material/Slider"
-import { useEffect, useState, Dispatch, SetStateAction } from "react"
+import { useEffect, useState, Dispatch, SetStateAction, useRef } from "react"
 import { Type, UserFilter, Districts } from "../../../../services/models/models";
 import { useAppDispatch } from "../../../../store/hooks";
 import { District, Rooms } from "../../../../utils/constants";
@@ -79,7 +79,8 @@ const FiltersSection: React.FC<{
 
     const handleOneRoomChip = (e: React.MouseEvent) => {
         let span = e.target as HTMLElement;
-        if(rooms.includes(+span.innerHTML) === false ) {
+        let number = +span.innerHTML;
+        if(rooms.includes(number) === false && number) {
             setRooms([...rooms, +span?.innerHTML]);    
         }
     };
