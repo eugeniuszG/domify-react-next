@@ -30,6 +30,7 @@ To run this project, you will need to add the following environment variables to
 - Add infinite scroll instead of standard pagination
 - Use Formik for Filters Section (I'm not sure)
 - Improve Navigation in NavBar
+- Add Unit Tests
 - Deployment - in near future xd
  
 ### App in use
