@@ -22,4 +22,10 @@
     background-color: rgb(240, 240, 240);
 }
 
+.pagination {
+    position: absolute;
+    width: auto; 
+    height: 4.5rem;
+}
+
 

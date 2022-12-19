@@ -1,16 +1,7 @@
-.content{
-    height: 193px;
-    width: 303px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 20px;
-    box-shadow: rgb(204 204 204) 0px 0px 4px 0px;
-    cursor: pointer;
-}
-
 .bg-green-gradient{
     background: -webkit-linear-gradient(top, rgb(98, 201, 132) 0%, rgba(24, 217, 149, 0.95) 100%);
     border-radius: 20px;
-    width: 1068px;
+    width: auto;
     height: 450px;
 }
 

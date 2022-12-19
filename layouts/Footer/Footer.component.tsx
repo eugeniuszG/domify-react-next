@@ -6,7 +6,7 @@ export const Footer = (props: any) => {
     let dateYear = new Date().getFullYear() 
     return(
         <footer className={styles['footer']}>
-            <div className="container-fluid pt-2 mt-auto">
+            <div className="pt-2 mt-auto">
                 <ul className={`${"nav"} ${"justify-content-center"}`}>
                     <li className={`${'nav-item'} ${"px-5"}`}>
                         <Link href='/terms' className={`${"mx-3"}`}><a className={styles["nav-link"]}>Terms of Service</a></Link>

@@ -25,8 +25,11 @@ const RentOffersWrapper: NextPage = () => {
     const fetchedApartmentsList = selector((state: RootState) => state.apartments.apartmentsList);
     const loadingState = selector((state: RootState) => state.apartments.loadingState);
     const serverPagination = selector((state: RootState) => state.apartments.pagination);
-    const numberOfPages = serverPagination?.total ? (Math.round(serverPagination?.total / payload.limit)) : 20;
+    let numberOfPages = serverPagination?.total ? (Math.round(serverPagination?.total / payload.limit)) : 20;
 
+    if (!numberOfPages) {
+        numberOfPages = 1;
+    }
 
     useEffect(() => {
         if (isFilterUsed == false) {
@@ -52,8 +55,8 @@ const RentOffersWrapper: NextPage = () => {
                     isFiltersSetter={setFiltersUsedBoolean}
                 />
                 <div style={{minHeight:"100%", paddingRight: 0}} className='col-9 position-relative'>
-                    <div style={{paddingBottom: "5rem"}}>
-                        { loadingState === "loading" ? 
+                    <div style={{paddingBottom: "7rem"}}>
+                        { loadingState === 'loading' ? 
                             <div style={{"top":"40%"}} className='position-absolute start-50 translate-middle'>
                                 <LoaderSimple/>
                             </div> : 
@@ -69,8 +72,8 @@ const RentOffersWrapper: NextPage = () => {
                         <div style={{
                             position: 'absolute', 
                             bottom: 0, 
-                            width: "100%", 
-                            height: "4.5rem", 
+                            width: "auto", 
+                            height: "4rem", 
                             left:"35%"}}>
                             <Pagination 
                                 onChange={handlePageChange}

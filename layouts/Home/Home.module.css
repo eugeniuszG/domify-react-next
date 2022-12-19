@@ -1,9 +1,9 @@
 .bg-green{
-    background: rgb(98, 201, 132);;
+    background: rgb(98, 201, 132);
   }
   
   .inspiration{
-    background-color: rgba(51, 51, 51, 0.38)
+    background-color: rgba(51, 51, 51, 0.38);
   }
   
   .txt-green-baloo-28px{
@@ -18,7 +18,8 @@
     color: rgb(107,107,107);
     font-size: 24px;
     font-family:  'Baloo 2', cursive; 
-    z-index: 1000;   
+    z-index: 1000;  
+    display: flex; 
   }
   
   .h2-baloo2-28px{
@@ -31,7 +32,7 @@
     text-align: center;
     border: none;
     height: 50px;
-    width: 80px;
+    width: 180px;
     background:white;
     padding-top: 8px;
     font-family: 'Cabin', sans-serif;
@@ -40,6 +41,7 @@
     border-radius: 35px;
     text-decoration: none;
     transition: background 0.3s ease 0s;
+    margin: 12px;
   }
   .btn-start-custom:hover {
     background: rgb(51,51,51);

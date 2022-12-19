@@ -8,7 +8,6 @@ import Image from "next/image";
 
 export const IntroHeader = () => {
     return(
-    <div>
         <section>
             <div className="py-3">
                 <div className={`${styles["bg-green-gradient"]} ${"d-block"} ${"mx-auto"}`}>
@@ -26,37 +25,24 @@ export const IntroHeader = () => {
             </div>
 
             <div className="container py-5 my-5">
-                <div className="row">
-                    <div className="col-4 ">
-                      <div className={`${styles["content"]} ${"justify-contetn-center"}`}>
-                            <Card 
-                                logo = {messengerLogo} 
-                                header = 'DomifyBot. Messenger'
-                                content = 'monitoruje ogłoszenia i wysyła je w Messenger'
-                                label = 'start'/>
-                        </div>
-                    </div>
-                    <div className="col-4">
-                        <div className={styles["content"]}>
-                            <Card
-                                logo = {telegramLogo} 
-                                header = 'DomifyBot. Telegram'
-                                content = 'monitoruje ogłoszenia i wysyła je w Telegram'
-                                label = 'start'/>
-                        </div>
-                    </div>
-                    <div className="col-4">
-                        <div className={styles["content"]}>
-                            <Card 
-                                logo = {introMain} 
-                                header = 'Domify. Oferty'
-                                content = 'najnowsze ogłoszenia w jednym miejscu'
-                                label = 'coming soon 2022'/>
-                        </div>
-                    </div>
+                <div className="d-flex flex-row flex-wrap justify-content-center">
+                          <Card 
+                              logo = {messengerLogo} 
+                              header = 'DomifyBot. Messenger'
+                              content = 'monitoruje ogłoszenia i wysyła je w Messenger'
+                              label = 'start'/>
+                          <Card
+                              logo = {telegramLogo} 
+                              header = 'DomifyBot. Telegram'
+                              content = 'monitoruje ogłoszenia i wysyła je w Telegram'
+                              label = 'start'/>
+                          <Card 
+                              logo = {introMain} 
+                              header = 'Domify. Oferty'
+                              content = 'najnowsze ogłoszenia w jednym miejscu'
+                              label = 'coming soon 2022'/>
                 </div>
             </div>
         </section>
-    </div>
     )
 }

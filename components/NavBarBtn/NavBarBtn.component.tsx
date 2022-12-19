@@ -17,7 +17,7 @@ export const NavBarBtn = ({ label }: any) => {
     return(
         <div className={`${styles["txt-header"]}`}>
             <div className="me-sm-4 pe-sm-4">
-                <Link href={route}><a className={`${styles["contact"]} ${"text-decoration-none"}`}>{ label }</a></Link>
+                <Link href={route}><a className={`${styles["contact"]} ${"text-decoration-none nav-item nav-link active"}`}>{ label }</a></Link>
             </div>
         </div>
     )

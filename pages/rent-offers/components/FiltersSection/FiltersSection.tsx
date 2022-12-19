@@ -29,7 +29,7 @@ const FiltersSection: React.FC<{
     const [districts, setDistricts] = useState<string[]>([]);
 
     const [isResetEnabled, setResetState] = useState<boolean>(false);
-    const [isApplyDirty, setApplyState] = useState<boolean>(false);
+    const [isReadyToSubmit, setApplyState] = useState<boolean>(false);
 
     let dispatch = useAppDispatch();
 
@@ -53,10 +53,10 @@ const FiltersSection: React.FC<{
             userFilter: userFilters
         }
         pageSetter(currentPage!);
-        if (isApplyDirty && isFilterUsed) {
+        if (isReadyToSubmit && isFilterUsed) {
             dispatch(fetchApartmetsFiltered(payloadWithFilters))
         }
-    }, [isRoom, isApartemnt, rooms, districts, isApplyDirty, isResetEnabled, currentPage])
+    }, [isRoom, isApartemnt, rooms, districts, priceRange, isReadyToSubmit, isResetEnabled, currentPage])
 
     const handlePriceRangeChange = (event: Event, newValue: number | number[]) => {
         setPriceRange(newValue as number[]);
@@ -223,7 +223,7 @@ const FiltersSection: React.FC<{
         <Divider />
         <div className='mx-auto mb-2 d-flex justify-content-center' style={{paddingTop: '12px'}}>
             <button onClick={handleReset} disabled={isResetEnabled === false} type='button' className={`${styles["btn-reset"]} ${'mx-3'}`} >reset</button>
-            <button onClick={handleApply} disabled={isApplyDirty === false} type='button' className={`${styles["btn-apply"]}`}>apply</button>
+            <button onClick={handleApply} disabled={isReadyToSubmit === false} type='button' className={`${styles["btn-apply"]}`}>apply</button>
         </div>
     </div>
     )

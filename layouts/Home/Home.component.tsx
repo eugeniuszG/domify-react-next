@@ -14,21 +14,19 @@ const Home = () => {
   return (
     <>
     <IntroHeader/>
-    <div>
-        <section id="title" className="container-fluid">
-            <div className= {`${styles['bg-green']} ${"row"}`}>
-                <div className="col-8 mt-2" style={{paddingLeft: "0"}}>
-                    <Image
-                        className={styles["inspiration"]} 
-                        src={coupleImage} 
-                        alt="Wynajem mieszkania"/>
-                </div>
-                <div className="col-4 d-block my-auto">
-                    <h3 className={`${styles['txt-green-baloo-28px']} ${"text-center"}`}  style={{color: "white"}}>Wynajęcie nowego mieszkania to początek czegoś wspaniałego!</h3>
-                </div>
+    <section id="title" className='d-none d-sm-block'>
+        <div className= {`${styles['bg-green']} ${"d-flex align-items-center"}`}>
+            <div className="mt-2">
+                <Image
+                    className={styles["inspiration"]} 
+                    src={coupleImage} 
+                    alt="Wynajem mieszkania"/>
             </div>
-        </section>
-    </div>
+            <div className="">
+                <h3 className={`${styles['txt-green-baloo-28px']} ${"text-center"}`}  style={{color: "white"}}>Wynajęcie nowego mieszkania to początek czegoś wspaniałego!</h3>
+            </div>
+        </div>
+    </section>
     <Section
         h1 = 'Domify. Bot'
         logoFaviconPng = {logoFaviconPng}
@@ -68,19 +66,10 @@ const Home = () => {
                 </div>
             </div>
             
-            <div className="flex-column pb-5 mt-2">
-                <div className="d-flex justify-content-center ms-md-5 ">
-                    <div className="mx-3">
-                        <button style={{width: "180px"}} className={`${styles["btn-start-custom"]}`}>facebook</button>
-                    </div>
-                    <div className="mx-3">
-                        <button style={{width: "180px"}} className={`${styles["btn-start-custom"]}`}>instagram</button>
-                    </div>
-                    <div className="mx-3">
-                        <button style={{width: "180px"}} className={`${styles["btn-start-custom"]}`}>email</button>
-                    </div>
-
-                </div>
+            <div className="d-flex flex-row justify-content-center flex-wrap ms-md-5 pb-5 mt-2">
+                <button className={`${styles["btn-start-custom"]}`}>facebook</button>
+                <button className={`${styles["btn-start-custom"]}`}>instagram</button>
+                <button className={`${styles["btn-start-custom"]}`}>email</button>
             </div>
         </div>
     </section>
