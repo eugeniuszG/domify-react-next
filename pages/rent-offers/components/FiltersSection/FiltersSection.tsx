@@ -62,56 +62,14 @@ const FiltersSection: React.FC<{
         setPriceRange(newValue as number[]);
     };
 
-    const handleApartmentDelete = () => {
-        setApartmentBoolean(false)
-    };
-
-    const handleApartmetChip = () => {
-        setApartmentBoolean(true);
-    };
-
-    const handleRoomChip = () => {
-        setRoomBoolean(true);
-    };
-    const handleRoomDelete = () => {
-        setRoomBoolean(false);
-    };
-
-    const handleOneRoomChip = (e: React.MouseEvent) => {
-        let span = e.target as HTMLElement;
-        let number = +span.innerHTML;
-        if(rooms.includes(number) === false && number) {
-            setRooms([...rooms, +span?.innerHTML]);    
-        }
-    };
-
-    const handleDistrictChip = (e: React.MouseEvent) => {
-        let span = e.target as HTMLElement;
-        setDistricts([...districts, span.innerText])
-    };
-
-    const handleDistrictDelete = (e: any) => {
-        let choosedDistrict = e.nativeEvent.path[2].innerText as string;
-        if(Object.values(District).includes(choosedDistrict)) {
-            setDistricts(districts.filter((district: string) => district !== choosedDistrict))
-        }
-    }
-
-    const handleRoomsDelete = (e: any) => {
-        let choosedRoom = +e.nativeEvent.path[2].innerText as number;
-        setRooms(rooms.filter((numbers: number) => {
-            return numbers !== choosedRoom;
-        }));
-    }
-
     const handleReset = () => {
-        setPriceRange([1000, 2500]);
-        setApartmentBoolean(false);
-            setRoomBoolean(false);
-            setRooms([]);
-        setDistricts([]);
-        isFiltersSetter(false);
-        pageSetter(1);
+      setPriceRange([1000, 2500]);
+      setApartmentBoolean(false);
+      setRoomBoolean(false);
+      setRooms([]);
+      setDistricts([]);
+      isFiltersSetter(false);
+      pageSetter(1);
     }
 
     const handleApply = () => {
@@ -144,16 +102,26 @@ const FiltersSection: React.FC<{
             <div className= {styles['list-chip-elements']}>
                 <span className='m-2'>
                     {isApartemnt ? 
-                        <Chip label="Apartment" onClick={handleApartmetChip} color='success'  onDelete={handleApartmentDelete}/> 
-                        :
-                        <Chip label="Apartment" onClick={handleApartmetChip} />
+                        <Chip 
+                          label="Apartment" 
+                          onClick={() => setApartmentBoolean(true)} 
+                          color='success'  
+                          onDelete={() => setApartmentBoolean(false)}/> :
+                        <Chip 
+                          label="Apartment" 
+                          onClick={() => setApartmentBoolean(true)} />
                     }
                 </span>
                 <span className='m-2'>
                     {isRoom ? 
-                        <Chip label="Room" onClick={handleRoomChip} color='success' onDelete={handleRoomDelete}/>
-                        :
-                        <Chip label="Room" onClick={handleRoomChip}/>
+                        <Chip 
+                          label="Room" 
+                          onClick={() => setRoomBoolean(true)} 
+                          color='success' 
+                          onDelete={() => setRoomBoolean(false)}/> :
+                        <Chip 
+                          label="Room" 
+                          onClick={() => setRoomBoolean(true)}/>
                     }
                 </span>
             </div>
@@ -176,8 +144,7 @@ const FiltersSection: React.FC<{
                     width: 270,
                     color: 'success.main',
                     margin: 'auto'
-                  }}
-            />
+                  }}/>
             <div className={styles["list-chip-elements"]}>
                 <Chip label={priceRange ? priceRange[0] : 0}/>
                 <div className='px-3 pt-1'>-</div> 
@@ -191,10 +158,17 @@ const FiltersSection: React.FC<{
                 {Rooms?.map((room: number, i: number) => {
                     return (
                         <span style={{padding: '4px', marginTop: '4px'}} key={i}>
-                            {rooms.includes(room) ? 
-                                <Chip label={room} onClick={handleOneRoomChip} color='success'  onDelete={handleRoomsDelete}/> 
-                                :
-                                <Chip label={room} onClick={handleOneRoomChip} />
+                            {rooms.includes(room) ?
+                               <Chip 
+                                  label={room} 
+                                  onClick={() => setRooms(rooms => [...rooms, i+1])} 
+                                  color='success'  
+                                  onDelete={() => setRooms(rooms => rooms.filter((numbers: number) => {
+                                    return numbers !== room;
+                                }))}/> :
+                                <Chip 
+                                  label={room} 
+                                  onClick={() => setRooms(rooms => [...rooms, i+1])} />
                             }
                         </span>
                     )
@@ -210,20 +184,36 @@ const FiltersSection: React.FC<{
                         return (
                             <span style={{padding: '4px', marginTop: '4px'}} key={index}>
                                 {districts.includes(district) ? 
-                                    <Chip label={district} onClick={handleDistrictChip} color='success' onDelete={handleDistrictDelete}/> 
-                                    :
-                                    <Chip label={district} onClick={handleDistrictChip}/>
+                                    <Chip 
+                                      label={district}
+                                      color='success' 
+                                      onClick={() =>  setDistricts((districts) => [...districts, district])} 
+                                      onDelete={() => setDistricts((districts) => districts.filter((district: string) => district !== district))}/> :
+                                    <Chip 
+                                      label={district} 
+                                      onClick={() =>  setDistricts((districts) => [...districts, district])}/>
                                 }
                             </span>
                         )
                     }
-                ) : null }
+                ) : null}
             </div>
         </div>
         <Divider />
         <div className='mx-auto mb-2 d-flex justify-content-center' style={{paddingTop: '12px'}}>
-            <button onClick={handleReset} disabled={isResetEnabled === false} type='button' className={`${styles["btn-reset"]} ${'mx-3'}`} >reset</button>
-            <button onClick={handleApply} disabled={isReadyToSubmit === false} type='button' className={`${styles["btn-apply"]}`}>apply</button>
+          <button 
+            onClick={handleReset} 
+            disabled={isResetEnabled === false} 
+            type='button' 
+            className={`${styles["btn-reset"]} ${'mx-3'}`}>
+              reset
+          </button>
+          <button 
+            onClick={handleApply} 
+            disabled={isReadyToSubmit === false} 
+            type='button' className={`${styles["btn-apply"]}`}>
+              apply
+            </button>
         </div>
     </div>
     )
